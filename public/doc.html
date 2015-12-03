@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentation Cobot API</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato|Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="pure-g">
+    <div class="pure-u-1-24 pure-u-md-1-6 pure-u-lg-1-4 pure-u-xl-7-24"></div>
+    <div class="pure-u-11-12 pure-u-md-2-3 pure-u-lg-1-2 pure-u-xl-5-12">
+
+        <h1>API Authentication</h1>
+        <p>This API utilizes <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">basic authentication</a>.
+            The email and password of a user are used as username and password. As stated on the wikipedia page,
+            these values are not encrypted during transmission and thus HTTPS is required in production. The only resource that does not require
+            authentication is the post to a user.
+        </p>
+
+        <h1 id="user">User</h1>
+        <div>
+            <h2>POST /users</h2>
+            Creates a new user <br>
+            <b>Resource:</b> <code>POST http://cobot.emilflach.com/users</code>
+            <p>
+            <h3>Input</h3>
+            <b>Variables:</b> <code>none</code> <br>
+            <b>Body:</b>
+    <pre>
+        <code class="php">
+            'name' => 'required|string|min:4',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6',
+            'location' => 'required|integer'
+        </code>
+    </pre>
+            </p>
+            <p>
+            <h3>Output</h3>
+            <b>HTTP status code:</b> <code>201</code><br>
+            <b>JSON Response:</b>
+    <pre>
+        <code class="json">
+            "success": {
+            "message": "User successfully created.",
+            "status_code": 201
+            }
+        </code>
+    </pre>
+            </p>
+        </div>
+
+        <div>
+            <h2>GET /users/{user_id}</h2>
+            Shows information of a specific user.<br>
+            <b>Resource:</b> <code>GET http://cobot.emilflach.com/users/{user_id}</code>
+            <p>
+            <h3>Input</h3>
+            <b>Variables:</b> <code>int user_id</code><br>
+            <b>Body:</b> <code>none</code>
+            </p>
+            <p>
+            <h3>Output</h3>
+            <b>HTTP status code:</b> <code>200</code> <br>
+            <b>JSON Response:</b>
+        <pre>
+            <code class="json">
+                "data": {
+                "id": "2",
+                "name": "Voluptatum.",
+                "location": "A corporis."
+                }
+            </code>
+        </pre>
+            </p>
+        </div>
+
+        <div>
+            <h2>PUT or PATCH /users/{user_id}</h2>
+            Update all or some information of a specific user.<br>
+            <b>Resource:</b> <code>PUT http://cobot.emilflach.com/users/{user_id}</code>
+            <p>
+            <h3>Input</h3>
+            <b>Variables:</b> <code>int user_id</code><br>
+            <b>Body:</b>
+     <pre>
+        <code class="php">
+            'name' => 'string|min:4',
+            'email' => 'email|unique:users',
+            'password' => 'string|min:6',
+            'location' => 'integer'
+        </code>
+    </pre>
+            </p>
+            <p>
+            <h3>Output</h3>
+            <b>HTTP status code:</b> <code>200</code> <br>
+            <b>JSON Response:</b>
+        <pre>
+            <code class="json">
+                "success": {
+                "message": "User successfully updated.",
+                "status_code": 200
+                }
+            </code>
+        </pre>
+            </p>
+        </div>
+
+        <div>
+            <h2>DELETE /users/{user_id}</h2>
+            Delete a specific user. <br>
+            <b>Resource:</b> <code>DELETE http://cobot.emilflach.com/users/{user_id}</code>
+            <p>
+            <h3>Input</h3>
+            <b>Variables:</b> <code>int user_id</code><br>
+            <b>Body:</b> <code>none</code>
+            </p>
+            <p>
+            <h3>Output</h3>
+            <b>HTTP status code:</b> <code>200</code> <br>
+            <b>JSON Response:</b>
+        <pre>
+            <code class="json">
+                "success": {
+                "message": "User successfully deleted.",
+                "status_code": 200
+                }
+            </code>
+        </pre>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

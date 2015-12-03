@@ -1,0 +1,30 @@
+@import 'purecss/base-min';
+@import 'purecss/grids-min';
+@import 'purecss/grids-responsive-min';
+
+$bg: #354458;
+$text: #fafafa;
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background-color: $bg;
+  color: $text;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.2;
+  font-size: 1.05em;
+}
+
+
+h1 {
+  color: white;
+  font-size: 2.5rem;
+  font-family: 'Oswald', sans-serif;
+}
+
+h3 {
+  margin: 0;
+}
