@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('location');
+            $table->integer('location');
             $table->integer('delivery_status');
             $table->dateTime('delivered_at');
             $table->softDeletes();

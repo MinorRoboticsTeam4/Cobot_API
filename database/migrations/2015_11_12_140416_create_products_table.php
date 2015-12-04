@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->integer('type');
-            $table->string('image_path');
             $table->integer('option_strength');
             $table->integer('option_milk');
             $table->integer('option_sugar');

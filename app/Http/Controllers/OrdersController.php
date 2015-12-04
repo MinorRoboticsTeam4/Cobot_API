@@ -39,7 +39,8 @@ class OrdersController extends ApiController
             return $this->respondInsufficientPermissions('User not authorized for this request.');
         }
 
-        $orders = Order::where('delivered_at', null)->get();
+        $orders = Order::where('delivered_at', null)->all();
+
         if ( count($orders) == 0 )
         {
             return $this->respondNotFound('Orders do not exist.');

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends ApiController
 {
 
-    use defaultsGenerator;
+    use DefaultsGenerator;
 
     /**
      * @var UserTransformer
@@ -41,10 +41,10 @@ class UsersController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:4',
+            'name' => 'string|min:1',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'location' => 'required|integer',
+            'location' => 'integer',
         ]);
 
         if ($validator->fails()) {
@@ -56,7 +56,7 @@ class UsersController extends ApiController
 
         $this->coffeeGenerator($user->id);
 
-        return $this->respondCreated("User successfully created.");
+        return $this->respondCreated($this->userTransformer->transform($user));
     }
 
     /**

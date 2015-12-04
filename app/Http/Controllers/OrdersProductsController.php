@@ -86,7 +86,6 @@ class OrdersProductsController extends ApiController
             'order_id' => 'required|integer',
             'name' => 'required|string',
             'type' => 'required|integer',
-            'image_path' => 'required|string',
             'option_strength' => 'required|integer',
             'option_milk' => 'required|integer',
             'option_sugar' => 'required|integer',
@@ -158,7 +157,6 @@ class OrdersProductsController extends ApiController
             'order_id' => 'required|integer',
             'name' => 'string',
             'type' => 'integer',
-            'image_path' => 'string',
             'option_strength' => 'integer',
             'option_milk' => 'integer',
             'option_sugar' => 'integer',
@@ -207,8 +205,11 @@ class OrdersProductsController extends ApiController
         }
 
         $product->delete();
-        return $this->respondUpdated("Order product successfully deleted.");
 
+        if($order->products->count() == 1) {
+            $order->delete();
+        }
+        return $this->respondUpdated("Order product successfully deleted.");
     }
 
 }

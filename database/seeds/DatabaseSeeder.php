@@ -72,7 +72,7 @@ class UsersTableSeeder extends Seeder {
             User::create([
                 'name' => $faker->sentence(1),
                 'email' => $faker->email,
-                'location' => $faker->sentence(1),
+                'location' => $faker->numberBetween(0,50),
                 'password' => bcrypt(123456),
             ]);
         }
@@ -98,7 +98,6 @@ class ProductsTableSeeder extends Seeder {
                 'user_id' => $faker->randomElement($userIds),
                 'name' => $faker->word(),
                 'type' => $faker->numberBetween(0,4),
-                'image_path' => $faker->word(),
                 'option_strength' => $faker->numberBetween(0,4),
                 'option_milk' => $faker->numberBetween(0,4),
                 'option_sugar' => $faker->numberBetween(0,4),
@@ -124,7 +123,7 @@ class OrdersTableSeeder extends Seeder {
         {
             Order::create([
                 'user_id' => $faker->randomElement($userIds),
-                'location' => $faker->sentence(),
+                'location' => $faker->numberBetween(0,50),
                 'delivered_at' => $faker->dateTime(),
                 'delivery_status' => $faker->numberBetween(0,10)
             ]);
@@ -151,7 +150,6 @@ class OrderProductsTableSeeder extends Seeder {
                 'order_id' => $faker->randomElement($orderIds),
                 'name' => $faker->word(),
                 'type' => $faker->numberBetween(0,4),
-                'image_path' => $faker->word(),
                 'option_strength' => $faker->numberBetween(0,4),
                 'option_milk' => $faker->numberBetween(0,4),
                 'option_sugar' => $faker->numberBetween(0,4),

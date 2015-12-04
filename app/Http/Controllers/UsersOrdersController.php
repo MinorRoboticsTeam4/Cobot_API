@@ -4,6 +4,7 @@ use App\Cobot\Transformers\UserTransformer;
 use App\Cobot\Transformers\OrderTransformer;
 use App\Order;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,13 @@ class UsersOrdersController extends ApiController
             return $this->respondNotFound('User does not exist.');
         }
 
-        return $this->respond($this->orderTransformer->transformCollection($user->orders->all()));
+        $order = $user->orders->where('delivery_status', '0')->all();
+        if ( !$order )
+        {
+            return $this->respondNotFound('Orders do not exist.');
+        }
+
+        return $this->respond($this->orderTransformer->transformCollection($order));
     }
 
     /**
