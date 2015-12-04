@@ -54,9 +54,9 @@ class UsersController extends ApiController
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
 
-        $this->coffeeGenerator($user->id);
+        $this->coffeeGenerator($user->id); 
 
-        return $this->respondCreated("User successfully created.");
+        return $this->respondCreated($this->userTransformer->transform($user));
     }
 
     /**
