@@ -28,7 +28,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'location', 'delivered_at', 'delivery_status'];
+    protected $fillable = ['user_id', 'location_id', 'delivered_at', 'delivery_status'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -43,6 +43,10 @@ class Order extends Model
 
     public function products() {
         return $this->hasMany('App\OrderProducts');
+    }
+
+    public function location() {
+        return $this->belongsTo('App\Location');
     }
 
 }

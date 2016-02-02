@@ -44,7 +44,8 @@ class UsersController extends ApiController
             'name' => 'string|min:1',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'location' => 'integer',
+            'location_id' => 'integer',
+            'product_id' => 'integer'
         ]);
 
         if ($validator->fails()) {
@@ -105,7 +106,8 @@ class UsersController extends ApiController
      */
     public function update(Request $request, $user_id)
     {
-        if( Auth::user()->id != $user_id )
+        $user = Auth::user();
+        if( $user->id != $user_id )
         {
             return $this->respondInsufficientPermissions('User not authorized for this request.');
         }
@@ -114,15 +116,16 @@ class UsersController extends ApiController
             'name' => ' min:4',
             'email' => 'unique:users|email',
             'password' => 'min:6',
-            'location' => 'string',
+            'location_id' => 'integer',
+            'product_id' => 'integer'
         ]);
 
         if ($validator->fails()) {
             return $this->respondValidationError($validator->errors(), "Parameters failed validation for a user");
         }
 
-        User::find($user_id)->update($request->all());
-        return $this->respondUpdated("User successfully updated.");
+        $user->update($request->all());
+        return $this->respond($this->userTransformer->transform($user));
     }
 
     /**

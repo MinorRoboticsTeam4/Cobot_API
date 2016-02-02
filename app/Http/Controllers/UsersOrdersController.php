@@ -46,10 +46,10 @@ class UsersOrdersController extends ApiController
             return $this->respondNotFound('User does not exist.');
         }
 
-        $order = $user->orders->where('delivery_status', '0')->all();
+        $order = $user->orders->all();
         if ( !$order )
         {
-            return $this->respondNotFound('Orders do not exist.');
+            return $this->respondNotFound('Order do not exist.');
         }
 
         return $this->respond($this->orderTransformer->transformCollection($order));
@@ -71,7 +71,7 @@ class UsersOrdersController extends ApiController
         }
 
         $request['user_id'] = $user->id;
-        $request['location'] = $user->location;
+        $request['location_id'] = $user->location_id;
 
         if(count($user->orders) != 0) {
             return $this->respondForbiddenRequest("User already has an open order");
@@ -128,7 +128,7 @@ class UsersOrdersController extends ApiController
         $request['user_id'] = $user_id;
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
-            'location' => 'string',
+            'location_id' => 'string',
             'delivered_at' => 'date',
             'delivery_status' => 'integer',
         ]);

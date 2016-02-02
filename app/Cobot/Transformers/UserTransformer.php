@@ -1,5 +1,8 @@
 <?php namespace App\Cobot\Transformers;
 
+use App\Location;
+use Exception;
+
 class UserTransformer extends Transformer {
 
     /**
@@ -9,10 +12,17 @@ class UserTransformer extends Transformer {
      */
     public function transform($item)
     {
+        try {
+            $location = Location::find($item['location_id'])->name;
+        } catch(Exception $e) {
+            $location = "Location not available";
+        }
         return [
             'id' => $item['id'],
             'name' => $item['name'],
-            'location' => $item['location']
+            'location_id' => $item['location_id'],
+            'product_id' => $item['product_id'],
+            'location' => $location
         ];
     }
 }

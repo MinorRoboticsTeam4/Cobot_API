@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'location'];
+    protected $fillable = ['name', 'email', 'password', 'location_id', 'product_id', 'nfc_identifier'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -53,5 +53,13 @@ class User extends Model implements AuthenticatableContract,
 
     public function products() {
         return $this->hasMany('App\Product');
+    }
+
+    public function nfcProduct() {
+        return $this->belongsTo('App\Product');
+    }
+
+    public function location() {
+        return $this->belongsTo('App\Location');
     }
 }
